@@ -1,0 +1,15 @@
+<form [formGroup]="addRoomFormGroup">
+    <h2 mat-dialog-title>Add Room</h2>
+    <mat-dialog-content>
+        <mat-form-field class="text-input" appearance="outline" [style.width.%]="100">
+            <mat-label>Room name</mat-label>
+            <input formControlName="roomName" matInput placeholder="Room name" autofocus maxlength="10">
+            <mat-error *ngIf="roomName?.errors?.pattern">Must be alphabet letters</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="justify-content-center">
+        <button mat-flat-button color="primary" (click)="submit()" [disabled]="addRoomFormGroup.invalid">
+            Create
+        </button>
+    </mat-dialog-actions>
+</form>

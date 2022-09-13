@@ -1,0 +1,26 @@
+<div class="chat-footer" [class.dark]="dark">
+    
+    <ng-container *ngIf="showInput; else showDefault">
+        <form [formGroup]="messageForm" (submit)="sendMessage()">
+            <mat-form-field class="text-input" appearance="outline" style="margin-bottom: -1.3rem" [style.width.%]="100" @fadeIn>
+                <mat-label>Enter message</mat-label>
+                <input formControlName="message" matInput placeholder="Aa" autofocus>
+                <mat-icon class="send-button" matSuffix color="primary" (click)="sendMessage()">send</mat-icon>
+            </mat-form-field>
+        </form>
+    </ng-container>
+
+    <ng-template #showDefault>
+        <div class="d-flex justify-content-evenly" @fadeIn>
+            <button mat-icon-button (click)="profileClick()" matTooltip="You" matTooltipClass="tooltip" matTooltipPosition="above">
+                <mat-icon>person</mat-icon>
+            </button>
+            <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle theme" matTooltipClass="tooltip" matTooltipPosition="above">
+                <mat-icon>
+                    {{ dark ? 'light_mode' : 'dark_mode' }}
+                </mat-icon>
+            </button>
+        </div>
+    </ng-template>
+
+</div>

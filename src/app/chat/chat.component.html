@@ -1,0 +1,55 @@
+<div class="d-flex flex-column h-100" [class.dark]="dark">
+    <!-- Header -->
+    <chat-header
+        [headerText]="roomName"
+        (onArrowClick)="closeChat()"
+        (onNewClick)="openAddRoomDialog()"
+        (onLeaveClick)="leaveRoom($event)"
+    ></chat-header>
+
+    <!-- Content (Rooms / Messages) -->
+    <ng-container 
+        *ngIf="!roomName; else chats"
+        [ngTemplateOutlet]="chatRooms"
+    ></ng-container>
+
+    <div class="spacer"></div>
+
+    <!-- Footer -->
+    <chat-footer
+        [showInput]="!!roomName"
+        (onSendMessage)="sendMessage($event)"
+        (onProfileClick)="profileClick()"
+    ></chat-footer>
+</div>
+
+<!-- List of all chat rooms -->
+<ng-template #chatRooms>
+    <div class="chat-rooms"  @fadeIn>
+        <div 
+            class="chat-items" 
+            *ngFor="let item of items" 
+            matRipple
+            (click)="openChat(item)"
+            @slideIn
+        >
+            <span class="room-name">{{ item }}</span>
+            <p class="m-0 last-message" *ngIf="rooms[item][0]">
+                {{ rooms[item][0].content }}
+            </p>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Main content or chat messages -->
+<ng-template #chats>
+    <div #chatContainer class="chat-container d-flex flex-column-reverse align-items-end px-2 h-100">
+        <span class="chat d-flex flex-column" [class.me]="!msg.messenger" *ngFor="let msg of rooms[roomName]" @popIn>
+            <span class="chat-messenger" *ngIf="msg.messenger">{{ msg.messenger }}</span>
+            <span class="chat-message">{{ msg.content }}</span>
+        </span>
+    </div>
+    <div class="pb-1 px-3 my-1 mat-caption">
+        <!-- someone is typing... -->
+    </div>
+</ng-template>
