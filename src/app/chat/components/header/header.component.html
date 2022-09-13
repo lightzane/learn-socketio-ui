@@ -1,0 +1,38 @@
+<mat-toolbar>
+    <!-- Show Edit and Chats header -->
+    <ng-container *ngIf="showEdit; else showRoomName">
+
+        <span class="mat-body" (click)="editClick()" @fadeIn>
+            {{ edit ? 'Done' : 'Edit' }}
+        </span>
+    
+        <div class="spacer" @fadeIn></div>
+    
+        <span class="header-text general" (click)="arrowClick()" @fadeIn>{{ headerText }}</span>
+
+        <div class="spacer" @fadeIn></div>
+    
+        <!-- New button -->
+        <button mat-icon-button color="primary" (click)="newClick()" @fadeIn matTooltip="Create Room" matTooltipClass="tooltip">
+            <mat-icon>add_circle_outline</mat-icon>
+        </button>
+    
+    </ng-container>
+
+    <!-- Show room name -->
+    <ng-template #showRoomName>
+        <!-- Back button -->
+        <button mat-icon-button color="primary" (click)="arrowClick()" @fadeIn>
+            <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+        <!-- Room name -->
+        <span class="header-text" (click)="arrowClick()" @fadeIn>{{ headerText }}</span>
+
+        <div class="spacer"></div>
+
+        <button mat-icon-button *ngIf="headerText !== 'General'" (click)="leave(headerText)" matTooltip="Leave Room" matTooltipClass="tooltip">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </ng-template>
+
+</mat-toolbar>
